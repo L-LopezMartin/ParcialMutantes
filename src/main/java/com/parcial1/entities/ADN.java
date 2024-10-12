@@ -40,65 +40,64 @@ public class ADN {
                 ADNValues actual = genoma[i][j];
                 //Para cada valor verificado, buscar si forma segementos con 4 valores iguales consecutivos
                 //Para ello, se chequea el valor vecino de la derecha, debajo y diagonales hacia abajo
-                boolean displ00 = i%2 == 0 && (j%4 == 0 ||j%4 == 1);
-                boolean displ12 = i%2 == 1 && (j%4 == 2 ||j%4 == 3);
+                if(!((i%4 >= 2 && j%2 == 1) || (i%4 <= 1 && j%2 == 0))) continue;             // Si se cumple, no es uno de los elementos que chequeamos
 
                 //Las búsquedas hacia delante son iguales sin importar la fila
                 // ---- Chequear delante
-                if (j + 2 < dimension && (displ00 || displ12))
+                if (j + 2 < dimension)
                 {             //Está dentro del límite hacia delante?
                     if (actual == genoma[i][j + 2]) {
                         //Chequear horizontal delante
                         if (j+3 < dimension && actual == genoma[i][j+1] && actual == genoma[i][j+3])
-                            {acumulador ++; System.out.println(genoma[i][j] + ";" + i+";"+j );}
+                            {acumulador ++; System.out.println(actual + ";" + i+";"+j );}
                             //Chequear horizontal detrás
                         else if (j-1 > 0 && actual == genoma[i][j-1] && actual == genoma[i][j+1])
-                            {acumulador ++; System.out.println(genoma[i][j] + ";" + i+";"+j );}
+                            {acumulador ++; System.out.println(actual + ";" + i+";"+j );}
                     }
                 }
 
                 // ---- Chequear abajo y diagonales
                 // Las búsquedas diagones y hacia abajo cambian dependiendo de si es la diagonal corta(i par) o larga(i impar)
-                if (displ00)              //Diagonales largas para i par y j de 2 en 2
+                if (i%2 == 0)              //Diagonales largas para i par y j de 2 en 2
                 {
                     // ---- Chequear abajo
                     if (i + 1 < dimension && actual == genoma[i+1][j]) {                //Está dentro del límite hacia abajo y es igual?
                         //Sólo se contabiliza 1 de las siguientes situaciones, caso contrario se contarían x2 las líneas de 5 iguales y x3 las de 6
                         //Chequear vertical arriba mucho
                         if (i-2 > 0 && actual == genoma[i-1][j] && actual == genoma[i-2][j])
-                            {acumulador ++; System.out.println(genoma[i][j] + ";" + i+";"+j );}
+                            {acumulador ++; System.out.println(actual + ";" + i+";"+j );}
                             //Chequear vertical abajo mucho
                         else if (i+3 < dimension && actual == genoma[i+2][j] && actual == genoma[i+3][j])
-                            {acumulador ++; System.out.println(genoma[i][j] + ";" + i+";"+j );}
+                            {acumulador ++; System.out.println(actual + ";" + i+";"+j );}
                             //Chequear vertical ambos
                         else if (i-1 > 0 && i+2 < dimension && actual == genoma[i-1][j] && actual == genoma[i+2][j])
-                            {acumulador ++; System.out.println(genoma[i][j] + ";" + i+";"+j );}
+                            {acumulador ++; System.out.println(actual + ";" + i+";"+j );}
                     }
 
                     // ---- Chequear diagonales
                     if (i + 3 < dimension) {                       //Está dentro del límite hacia abajo?
                         //Chequear diagonal atrás
                         if (j - 3 > 0 && actual == genoma[i+3][j-3] && actual == genoma[i+1][j-1] && actual == genoma[i+2][j-2])
-                            {acumulador ++; System.out.println(genoma[i][j] + ";" + i+";"+j );}
+                            {acumulador ++; System.out.println(actual + ";" + i+";"+j );}
                         //Chequear diagonal delante
                         if (j + 3 < dimension && actual == genoma[i+3][j+3] && actual == genoma[i+1][j+1] && actual == genoma[i+2][j+2])
-                            {acumulador ++; System.out.println(genoma[i][j] + ";" + i+";"+j );}
+                            {acumulador ++; System.out.println(actual + ";" + i+";"+j );}
                     }
                 }
-                else if(displ12)        //Diagonales cortas para i impar y j 2 en 2 desplazado por 2
+                else                        //Diagonales cortas para i impar y j 2 en 2 desplazado por 2
                 {
                     // ---- Chequear abajo
                     if (i + 3 < dimension && actual == genoma[i+1][j] && actual == genoma[i+2][j] && actual == genoma[i+3][j])
-                        {acumulador ++; System.out.println(genoma[i][j] + ";" + i+";"+j );}
+                        {acumulador ++; System.out.println(actual + ";" + i+";"+j );}
 
                     // ---- Chequear diagonales
                     if (i + 3 < dimension) {                       //Está dentro del límite hacia abajo?
                         //Chequear diagonal atrás
                         if (j - 3 > 0 && actual == genoma[i+3][j-3] && actual == genoma[i+1][j-1] && actual == genoma[i+2][j-2])
-                            {acumulador ++; System.out.println(genoma[i][j] + ";" + i+";"+j );}
+                            {acumulador ++; System.out.println(actual + ";" + i+";"+j );}
                         //Chequear diagonal delante
                         if (j + 3 < dimension && actual == genoma[i+3][j+3] && actual == genoma[i+1][j+1] && actual == genoma[i+2][j+2])
-                            {acumulador ++; System.out.println(genoma[i][j] + ";" + i+";"+j );}
+                            {acumulador ++; System.out.println(actual + ";" + i+";"+j );}
                     }
                 }
 
@@ -108,7 +107,6 @@ public class ADN {
                     return;
                 }
             }
-                System.out.println(acumulador);
         }
         isMutant = false;
     }

@@ -11,6 +11,18 @@ public class Main {
         persona.printGenoma();
         persona.isMutant();
         System.out.println(persona.isMutant);
+        ADNValues[][] matriz2 = {
+                {ADNValues.G,ADNValues.C,ADNValues.T,ADNValues.C,ADNValues.A},
+                {ADNValues.A,ADNValues.T,ADNValues.A,ADNValues.T,ADNValues.G},
+                {ADNValues.A,ADNValues.T,ADNValues.C,ADNValues.G,ADNValues.G},
+                {ADNValues.C,ADNValues.C,ADNValues.G,ADNValues.T,ADNValues.G},
+                {ADNValues.C,ADNValues.G,ADNValues.G,ADNValues.G,ADNValues.G},
+        };
+        persona.genoma = matriz2;
+        persona.printGenoma();
+        persona.dimension = 5;
+        persona.isMutant();
+        System.out.println(persona.isMutant);
     }
 }
 
