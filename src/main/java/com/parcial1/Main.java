@@ -5,6 +5,8 @@ import com.parcial1.entities.ADNValues;
 
 public class Main {
 
+    //TODO que los atributos de ADN vuelvan a ser privados. Getter y setter de lombok no funcionan
+
     public static void main(String[] args) {
         ADN persona = new ADN();
         persona.genomaAleatorio(8);

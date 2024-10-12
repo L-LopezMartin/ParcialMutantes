@@ -11,9 +11,7 @@ import java.util.Random;
 @Getter
 public class ADN {
     public ADNValues[][] genoma;
-    public int dimension;
     public boolean isMutant = false;
-
 
     //Función que verifica si un ADN corresponde a un mutante
     /*
@@ -31,6 +29,7 @@ public class ADN {
 
     */
     public void isMutant(){
+        int dimension = genoma.length;
         int acumulador = 0;
         // i es la fila
         for (int i=0;i< dimension;i++){
@@ -132,7 +131,6 @@ public class ADN {
                 matriz[i][j] = valores[k];
             }
         }
-        dimension = dim;
         genoma = matriz;
     }
 }
