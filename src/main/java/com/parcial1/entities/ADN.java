@@ -50,7 +50,7 @@ public class ADN {
                         if (j+3 < dimension && actual == genoma[i][j+1] && actual == genoma[i][j+3])
                             {acumulador ++; System.out.println(actual + ";" + i+";"+j );}
                             //Chequear horizontal detrás
-                        else if (j-1 > 0 && actual == genoma[i][j-1] && actual == genoma[i][j+1])
+                        else if (j-1 >= 0 && actual == genoma[i][j-1] && actual == genoma[i][j+1])
                             {acumulador ++; System.out.println(actual + ";" + i+";"+j );}
                     }
                 }
@@ -63,20 +63,20 @@ public class ADN {
                     if (i + 1 < dimension && actual == genoma[i+1][j]) {                //Está dentro del límite hacia abajo y es igual?
                         //Sólo se contabiliza 1 de las siguientes situaciones, caso contrario se contarían x2 las líneas de 5 iguales y x3 las de 6
                         //Chequear vertical arriba mucho
-                        if (i-2 > 0 && actual == genoma[i-1][j] && actual == genoma[i-2][j])
+                        if (i-2 >= 0 && actual == genoma[i-1][j] && actual == genoma[i-2][j])
                             {acumulador ++; System.out.println(actual + ";" + i+";"+j );}
                             //Chequear vertical abajo mucho
                         else if (i+3 < dimension && actual == genoma[i+2][j] && actual == genoma[i+3][j])
                             {acumulador ++; System.out.println(actual + ";" + i+";"+j );}
                             //Chequear vertical ambos
-                        else if (i-1 > 0 && i+2 < dimension && actual == genoma[i-1][j] && actual == genoma[i+2][j])
+                        else if (i-1 >= 0 && i+2 < dimension && actual == genoma[i-1][j] && actual == genoma[i+2][j])
                             {acumulador ++; System.out.println(actual + ";" + i+";"+j );}
                     }
 
                     // ---- Chequear diagonales
                     if (i + 3 < dimension) {                       //Está dentro del límite hacia abajo?
                         //Chequear diagonal atrás
-                        if (j - 3 > 0 && actual == genoma[i+3][j-3] && actual == genoma[i+1][j-1] && actual == genoma[i+2][j-2])
+                        if (j - 3 >= 0 && actual == genoma[i+3][j-3] && actual == genoma[i+1][j-1] && actual == genoma[i+2][j-2])
                             {acumulador ++; System.out.println(actual + ";" + i+";"+j );}
                         //Chequear diagonal delante
                         if (j + 3 < dimension && actual == genoma[i+3][j+3] && actual == genoma[i+1][j+1] && actual == genoma[i+2][j+2])
@@ -92,7 +92,7 @@ public class ADN {
                     // ---- Chequear diagonales
                     if (i + 3 < dimension) {                       //Está dentro del límite hacia abajo?
                         //Chequear diagonal atrás
-                        if (j - 3 > 0 && actual == genoma[i+3][j-3] && actual == genoma[i+1][j-1] && actual == genoma[i+2][j-2])
+                        if (j - 3 >= 0 && actual == genoma[i+3][j-3] && actual == genoma[i+1][j-1] && actual == genoma[i+2][j-2])
                             {acumulador ++; System.out.println(actual + ";" + i+";"+j );}
                         //Chequear diagonal delante
                         if (j + 3 < dimension && actual == genoma[i+3][j+3] && actual == genoma[i+1][j+1] && actual == genoma[i+2][j+2])
