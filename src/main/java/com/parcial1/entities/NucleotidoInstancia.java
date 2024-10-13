@@ -1,5 +1,6 @@
 package com.parcial1.entities;
 
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Random;
@@ -8,9 +9,10 @@ import java.util.Random;
 @Setter
 @Getter
 @NoArgsConstructor
-public class NucleotidoInstancia {
+@Entity(name = "NucleotidoInstancia")
+public class NucleotidoInstancia extends Base{
 
-    private Nucleotidos valor;
+    private String valor;
 
     //Estas variables indican si elemento forma parte de una cadena...
     //... horizontal
@@ -27,13 +29,13 @@ public class NucleotidoInstancia {
         Nucleotidos[] valores = Nucleotidos.values();
         Random random = new Random();
         int i = random.nextInt(valores.length);
-        valor = valores[i];
+        valor = valores[i].toString();
     }
     @Override
     public String toString(){
         return valor.toString();
     }
     public NucleotidoInstancia(String valor){
-        this.valor = Nucleotidos.valueOf(valor);
+        this.valor = Nucleotidos.valueOf(valor).toString();
     }
 }

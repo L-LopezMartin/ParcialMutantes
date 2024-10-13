@@ -1,5 +1,6 @@
 package com.parcial1.entities;
 
+import jakarta.persistence.*;
 import lombok.*;
 
 
@@ -7,8 +8,17 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @Getter
-public class ADN {
+@Entity
+public class Persona extends Base{
+
+    @Transient
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
     private NucleotidoInstancia[][] genoma;
+
+    private String[] genomaString;
+
+    @Setter(AccessLevel.NONE)
     private boolean isMutant = false;
 
     //Función que verifica si un ADN corresponde a un mutante
@@ -148,18 +158,13 @@ public class ADN {
             }
         }
         isMutant = false;
-        for(int i=0;i<dimension;i++){
-            for(int j=0;j<dimension;j++){
-                System.out.print(genoma[i][j].isVertical()+";");
-            }
-            System.out.println();
-        }
     }
 
     //Imprime la matriz en consola
     public void printGenoma(){
-        for (int i=0;i< genoma.length;i++){
-            for (int j = 0; j < genoma[i].length; j++) {
+        int length = genoma.length;
+        for (int i=0;i< length;i++){
+            for (int j = 0; j < length; j++) {
                 System.out.print(genoma[i][j] + ",");
             }
             System.out.println();
@@ -176,5 +181,42 @@ public class ADN {
             }
         }
         genoma = matriz;
+        genomaToString();
+    }
+
+    private void genomaToString(){
+        int length = genoma.length;
+        String[] genomaString = new String[length];
+        for (int i = 0; i < length; i++) {
+            for (int j = 0; j < length; j++) {
+                genomaString[i] = genomaString[i] + genoma[i][j].toString();
+            }
+            StringBuffer stringBuffer = new StringBuffer(genomaString[i]);
+            stringBuffer.delete(0,4);
+            genomaString[i] = stringBuffer.toString();
+        }
+        this.genomaString = genomaString;
+    }
+
+    public void printGenomaString(){
+        int length = genoma.length;
+        for (int i = 0; i < length; i++) {
+            for (int j = 0; j < length; j++) {
+                System.out.print(genomaString[i].charAt(j) + ",");
+            }
+            System.out.println();
+        }
+    }
+
+    public void setGenomaString(String[] input){
+        int length = input.length;
+        genoma = new NucleotidoInstancia[length][length];
+        for (int i = 0; i< length; i++){
+            for (int j = 0; j < length; j++) {
+                genoma[i][j] = new NucleotidoInstancia(String.valueOf(input[i].charAt(j))) ;
+            }
+        }
+        this.genomaString = input;
+        isMutant = false;
     }
 }
