@@ -1,18 +1,17 @@
 package com.parcial1;
 
 import com.parcial1.entities.ADN;
-import com.parcial1.entities.ADNValues;
+import com.parcial1.entities.Nucleotidos;
+import com.parcial1.entities.NucleotidoInstancia;
 
 public class Main {
 
-    //TODO que los atributos de ADN vuelvan a ser privados. Getter y setter de lombok no funcionan
-
     public static void main(String[] args) {
         ADN persona = new ADN();
-        persona.genomaAleatorio(8);
+        persona.genomaAleatorio(1);
         persona.printGenoma();
-        persona.isMutant();
-        System.out.println(persona.isMutant);
+        persona.isMutante();
+        System.out.println(persona.isMutant());
         //ADNValues[][] matriz2 = {
         //        {ADNValues.G,ADNValues.C,ADNValues.T,ADNValues.C,ADNValues.A},
         //        {ADNValues.A,ADNValues.T,ADNValues.A,ADNValues.T,ADNValues.G},
@@ -20,22 +19,26 @@ public class Main {
         //        {ADNValues.C,ADNValues.C,ADNValues.G,ADNValues.T,ADNValues.G},
         //        {ADNValues.C,ADNValues.G,ADNValues.G,ADNValues.G,ADNValues.G},
         //};
-        //persona.genoma = matriz2;
+        //persona.setGenoma(matriz2);
         //persona.printGenoma();
-        //persona.isMutant();
-        //System.out.println(persona.isMutant);
+        //persona.isMutante();
+        //System.out.println(persona.isMutant());
 
 
-        ADNValues[][] matriz3 = {
-                {ADNValues.A,ADNValues.A,ADNValues.A,ADNValues.A},
-                {ADNValues.C,ADNValues.G,ADNValues.T,ADNValues.G},
-                {ADNValues.T,ADNValues.T,ADNValues.T,ADNValues.T},
-                {ADNValues.G,ADNValues.G,ADNValues.G,ADNValues.G},
+        NucleotidoInstancia[][] matriz3 = {
+                {new NucleotidoInstancia("A"), new NucleotidoInstancia("A"), new NucleotidoInstancia("A"), new NucleotidoInstancia("C"), new NucleotidoInstancia("T"), new NucleotidoInstancia("A"), new NucleotidoInstancia("A"), new NucleotidoInstancia("A")},
+                {new NucleotidoInstancia("T"), new NucleotidoInstancia("G"), new NucleotidoInstancia("T"), new NucleotidoInstancia("G"), new NucleotidoInstancia("T"), new NucleotidoInstancia("A"), new NucleotidoInstancia("G"), new NucleotidoInstancia("A")},
+                {new NucleotidoInstancia("T"), new NucleotidoInstancia("C"), new NucleotidoInstancia("G"), new NucleotidoInstancia("T"), new NucleotidoInstancia("T"), new NucleotidoInstancia("A"), new NucleotidoInstancia("A"), new NucleotidoInstancia("A")},
+                {new NucleotidoInstancia("G"), new NucleotidoInstancia("G"), new NucleotidoInstancia("T"), new NucleotidoInstancia("G"), new NucleotidoInstancia("T"), new NucleotidoInstancia("C"), new NucleotidoInstancia("C"), new NucleotidoInstancia("C")},
+                {new NucleotidoInstancia("G"), new NucleotidoInstancia("C"), new NucleotidoInstancia("T"), new NucleotidoInstancia("C"), new NucleotidoInstancia("T"), new NucleotidoInstancia("A"), new NucleotidoInstancia("T"), new NucleotidoInstancia("A")},
+                {new NucleotidoInstancia("A"), new NucleotidoInstancia("A"), new NucleotidoInstancia("G"), new NucleotidoInstancia("G"), new NucleotidoInstancia("T"), new NucleotidoInstancia("A"), new NucleotidoInstancia("G"), new NucleotidoInstancia("A")},
+                {new NucleotidoInstancia("G"), new NucleotidoInstancia("C"), new NucleotidoInstancia("A"), new NucleotidoInstancia("G"), new NucleotidoInstancia("T"), new NucleotidoInstancia("C"), new NucleotidoInstancia("C"), new NucleotidoInstancia("C")},
+                {new NucleotidoInstancia("G"), new NucleotidoInstancia("C"), new NucleotidoInstancia("G"), new NucleotidoInstancia("G"), new NucleotidoInstancia("T"), new NucleotidoInstancia("A"), new NucleotidoInstancia("A"), new NucleotidoInstancia("A")},
         };
-        persona.genoma = matriz3;
+        persona.setGenoma(matriz3);
         persona.printGenoma();
-        persona.isMutant();
-        System.out.println(persona.isMutant);
+        persona.isMutante();
+        System.out.println(persona.isMutant());
     }
 }
 
