@@ -1,6 +1,6 @@
-package com.example.inicial1.entities.audit;
+package com.parcial1.entities.audit;
 
-import com.example.inicial1.config.CustomRevisionListener;
+import com.parcial1.config.CustomRevisionListener;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.envers.RevisionEntity;

@@ -1,7 +1,7 @@
-package com.example.inicial1.controllers;
+package com.parcial1.controllers;
 
-import com.example.inicial1.entities.Base;
-import com.example.inicial1.services.BaseServiceImpl;
+import com.parcial1.entities.Base;
+import com.parcial1.services.BaseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -19,17 +19,6 @@ public abstract class BaseControllerImpl<E extends Base, S extends BaseServiceIm
         try{
             return ResponseEntity.status(HttpStatus.OK).
                     body(servicio.findAll());
-        }
-        catch (Exception e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error, por favor intente más tarde\"}");
-        }
-    }
-
-    @GetMapping("/paged")
-    public ResponseEntity<?> getAll(Pageable pageable){
-        try{
-            return ResponseEntity.status(HttpStatus.OK).
-                    body(servicio.findAll(pageable));
         }
         catch (Exception e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error, por favor intente más tarde\"}");

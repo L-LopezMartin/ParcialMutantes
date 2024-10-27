@@ -5,14 +5,19 @@ import lombok.*;
 
 import java.util.Random;
 
+
 @AllArgsConstructor
 @Setter
 @Getter
 @NoArgsConstructor
-@Entity(name = "NucleotidoInstancia")
 public class NucleotidoInstancia extends Base{
 
+
     private String valor;
+
+    @Setter(AccessLevel.NONE)
+    @Getter(AccessLevel.NONE)
+    private transient String posiblesValores = "GCAT";
 
     //Estas variables indican si elemento forma parte de una cadena...
     //... horizontal
@@ -26,16 +31,17 @@ public class NucleotidoInstancia extends Base{
     //Son usados para evitar que cadenas de 5, 6 o 7 caracteres sean tomadas como múltiples cadenas de 4
 
     public void valorRand(){
-        Nucleotidos[] valores = Nucleotidos.values();
         Random random = new Random();
-        int i = random.nextInt(valores.length);
-        valor = valores[i].toString();
+        int i = random.nextInt(posiblesValores.length());
+        valor = String.valueOf(posiblesValores.charAt(i));
     }
-    @Override
-    public String toString(){
-        return valor.toString();
-    }
+
     public NucleotidoInstancia(String valor){
-        this.valor = Nucleotidos.valueOf(valor).toString();
+        for (int i = 0; i < posiblesValores.length(); i++) {
+            if (valor.charAt(0) == posiblesValores.charAt(i)) {
+                this.valor = valor;
+                break;
+            }
+        }
     }
 }
