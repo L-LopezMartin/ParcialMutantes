@@ -7,7 +7,6 @@ import com.parcial1.entities.Persona;
 import com.parcial1.exceptions.MalGenoma;
 import com.parcial1.exceptions.MatrizNoCuadrada;
 import com.parcial1.exceptions.NoMutante;
-import com.parcial1.repositories.BaseRepository;
 import com.parcial1.repositories.PersonaRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;

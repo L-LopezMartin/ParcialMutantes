@@ -1,7 +1,6 @@
 package com.parcial1.controllers;
 
 import com.parcial1.dtos.DTOPersonaInput;
-import com.parcial1.entities.Persona;
 import com.parcial1.exceptions.MalGenoma;
 import com.parcial1.exceptions.MatrizNoCuadrada;
 import com.parcial1.exceptions.NoMutante;

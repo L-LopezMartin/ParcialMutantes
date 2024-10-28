@@ -2,7 +2,6 @@ package com.parcial1.services;
 
 import com.parcial1.dtos.DTOPersonaInput;
 import com.parcial1.dtos.DTOPersonaOutput;
-import com.parcial1.entities.Persona;
 
 import java.util.List;
 

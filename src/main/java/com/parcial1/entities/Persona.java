@@ -28,8 +28,8 @@ public class Persona extends Base{
 //        for (int i=0;i< dim;i++){
 //            genoma[i] = "";
 //            for (int j = 0; j < dim; j++) {
-//                int k = random.nextInt(posiblesValores.length());
-//                genoma[i] = genoma[i] + posiblesValores.charAt(k);
+//                int k = random.nextInt(posiblesValores.length);
+//                genoma[i] = genoma[i] + posiblesValores[k];
 //            }
 //        }
 //    }
