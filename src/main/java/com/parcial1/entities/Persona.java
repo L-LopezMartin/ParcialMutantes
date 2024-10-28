@@ -16,10 +16,8 @@ public class Persona extends Base{
     @Column (nullable = false)
     private String[] genoma;
 
-    @Setter(AccessLevel.NONE)
-    @Getter(AccessLevel.NONE)
     @Transient
-    private transient final String posiblesValores = "GCAT";
+    private transient final char[] posiblesValores = {'G','C','A','T'};
 
     private boolean isMutant = false;
 

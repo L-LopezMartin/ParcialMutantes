@@ -2,6 +2,7 @@ package com.parcial1.controllers;
 
 import com.parcial1.dtos.DTOPersonaInput;
 import com.parcial1.entities.Persona;
+import com.parcial1.exceptions.MalGenoma;
 import com.parcial1.exceptions.MatrizNoCuadrada;
 import com.parcial1.exceptions.NoMutante;
 import com.parcial1.services.PersonaServiceImpl;
@@ -22,6 +23,9 @@ public class PersonaController{
     public ResponseEntity<?> mutant(@RequestBody DTOPersonaInput persona){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(servicio.isMutant(persona));
+        }
+        catch (MalGenoma e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error, "+ e.getMessage() +" }\"}");
         }
         catch (MatrizNoCuadrada e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error, "+ e.getMessage() +" }\"}");

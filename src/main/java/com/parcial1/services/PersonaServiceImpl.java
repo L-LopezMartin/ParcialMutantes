@@ -4,6 +4,7 @@ package com.parcial1.services;
 import com.parcial1.dtos.DTOPersonaInput;
 import com.parcial1.dtos.DTOPersonaOutput;
 import com.parcial1.entities.Persona;
+import com.parcial1.exceptions.MalGenoma;
 import com.parcial1.exceptions.MatrizNoCuadrada;
 import com.parcial1.exceptions.NoMutante;
 import com.parcial1.repositories.BaseRepository;
@@ -56,6 +57,14 @@ public class PersonaServiceImpl implements PersonaService{
                 for (int j = 0; j < dimension; j++) {
 
                     char actual = persona.getGenoma()[i].charAt(j);
+
+                    //Si el valor es distinto de los valores posibles, lanzar excepción
+                    if(
+                            actual != persona.getPosiblesValores()[0] &&
+                            actual != persona.getPosiblesValores()[1] &&
+                            actual != persona.getPosiblesValores()[2] &&
+                            actual != persona.getPosiblesValores()[3]
+                    ) throw new MalGenoma();
 
                     //Para cada valor verificado, buscar si forma segementos con 4 valores iguales consecutivos
                     //Para ello, se chequea el valor vecino de la derecha, debajo y diagonales hacia abajo
@@ -173,6 +182,8 @@ public class PersonaServiceImpl implements PersonaService{
             persona.setMutant(false);
             personaRepository.save(persona);
             throw new NoMutante();
+        } catch (MalGenoma e) {
+            throw new MalGenoma();
         }
         catch (NoMutante e){
             throw new NoMutante();
