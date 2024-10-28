@@ -4,6 +4,7 @@ import com.parcial1.entities.Persona;
 import com.parcial1.repositories.BaseRepository;
 import com.parcial1.repositories.PersonaRepository;
 import com.parcial1.services.PersonaServiceImpl;
+import io.swagger.v3.core.util.Json;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,12 +14,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.util.List;
+
 @SpringBootApplication
 public class Main {
     private static final Logger logger = LoggerFactory.getLogger(Main.class);
-
-    @Autowired
-    private PersonaRepository personaRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(Main.class, args);
@@ -74,11 +74,6 @@ public class Main {
                 };
                 persona3.setGenoma(matriz2);
                 persona3.printGenoma();
-
-                personaRepository.save(persona);
-                personaRepository.save(persona1);
-                personaRepository.save(persona2);
-                personaRepository.save(persona3);
             };
         }
 }

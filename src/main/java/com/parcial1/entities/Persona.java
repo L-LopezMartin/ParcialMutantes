@@ -10,31 +10,18 @@ import java.util.Random;
 @Setter
 @NoArgsConstructor
 @Getter
+@ToString
 public class Persona extends Base{
 
-    //@Transient
-    //private NucleotidoInstancia[][] genoma;
-
+    @Column (nullable = false)
     private String[] genoma;
 
     @Setter(AccessLevel.NONE)
     @Getter(AccessLevel.NONE)
+    @Transient
     private transient final String posiblesValores = "GCAT";
 
-
     private boolean isMutant = false;
-
-
-    //Imprime la matriz en consola
-//    public void printGenoma(){
-//        int length = genoma.length;
-//        for (int i=0;i< length;i++){
-//            for (int j = 0; j < length; j++) {
-//                System.out.print(genoma[i].charAt(j) + ",");
-//            }
-//            System.out.println();
-//        }
-//    }
 
     //Genera una matriz cuadrada con la dimensión que se le envíe
     public void genomaAleatorio(int dim){
@@ -49,6 +36,7 @@ public class Persona extends Base{
         }
     }
 
+    //Imprime la matriz en consola
     public void printGenoma(){
         int length = genoma.length;
         for (int i = 0; i < length; i++) {
@@ -59,8 +47,13 @@ public class Persona extends Base{
         }
     }
 
+    //Colocar un nuevo genoma a la persona marca la persona como no verificada
     public void setGenoma(String[] input){
         this.genoma = input;
         isMutant = false;
+    }
+
+    public Persona(String[] genoma){
+        this.genoma = genoma;
     }
 }
