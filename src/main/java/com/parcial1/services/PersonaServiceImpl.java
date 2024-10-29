@@ -25,10 +25,17 @@ public class PersonaServiceImpl implements PersonaService{
     public DTOPersonaOutput isMutant(DTOPersonaInput per) throws Exception {
         
         try{
+            //Verificar que el genoma ingresado sea una matriz cuadrada
             isGenomeSquare(per.getGenoma());
+
+            //Crear la persona
             Persona persona = new Persona();
             persona.setGenoma(per.getGenoma());
-            
+
+            //Verificar que la matriz no tenga caracteres distintos a los permitidos
+            checkChars(persona);
+
+            //Variables auxiliares
             int dimension = persona.getGenoma().length;
             int acumulador = 0;
             
@@ -56,14 +63,6 @@ public class PersonaServiceImpl implements PersonaService{
                 for (int j = 0; j < dimension; j++) {
 
                     char actual = persona.getGenoma()[i].charAt(j);
-
-                    //Si el valor es distinto de los valores posibles, lanzar excepción
-                    if(
-                            actual != persona.getPosiblesValores()[0] &&
-                            actual != persona.getPosiblesValores()[1] &&
-                            actual != persona.getPosiblesValores()[2] &&
-                            actual != persona.getPosiblesValores()[3]
-                    ) throw new MalGenoma();
 
                     //Para cada valor verificado, buscar si forma segementos con 4 valores iguales consecutivos
                     //Para ello, se chequea el valor vecino de la derecha, debajo y diagonales hacia abajo
@@ -231,6 +230,22 @@ public class PersonaServiceImpl implements PersonaService{
         for (String genLine : genoma){
             if (genLine.length() != dimension){
                 throw new MatrizNoCuadrada();
+            }
+        }
+    }
+
+    private void checkChars(Persona persona) throws MalGenoma{
+        String[] genoma = persona.getGenoma();
+        int dimension = persona.getGenoma().length;
+        for (String linea: genoma){
+            for (int i=0;i<dimension;i++){
+                char actual = linea.charAt(i);
+                if(
+                        actual != persona.getPosiblesValores()[0] &&
+                                actual != persona.getPosiblesValores()[1] &&
+                                actual != persona.getPosiblesValores()[2] &&
+                                actual != persona.getPosiblesValores()[3]
+                ) throw new MalGenoma();
             }
         }
     }
