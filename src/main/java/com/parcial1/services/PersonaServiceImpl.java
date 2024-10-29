@@ -40,7 +40,7 @@ public class PersonaServiceImpl implements PersonaService{
             int acumulador = 0;
             
             //Para cada carecter de genoma, según el tercer índice indica si es parte de una cadena...
-            //0-Vertical,1-Horizontal,2-Diagonal derecha /, 3-Diagonal izquierda \
+            //0-Vertical,1-Horizontal,2-Diagonal atrás /, 3-Diagonal delante \
             boolean[][][] parteDeCadena = new boolean[dimension][dimension][4];
 
             /*
@@ -66,7 +66,10 @@ public class PersonaServiceImpl implements PersonaService{
 
                     //Para cada valor verificado, buscar si forma segementos con 4 valores iguales consecutivos
                     //Para ello, se chequea el valor vecino de la derecha, debajo y diagonales hacia abajo
-                    if(!((i%4 >= 2 && j%2 == 1) || (i%4 <= 1 && j%2 == 0))) continue;             // Si se cumple, no es uno de los elementos que chequeamos
+
+                    // Si se cumple lo siguiente, no es uno de los elementos que chequeamos (es un _)
+                    if(!((i%4 >= 2 && j%2 == 1) || (i%4 <= 1 && j%2 == 0))) continue;
+
                     System.out.println("Checking: "+actual + ";" + i+";"+j);
 
                     //Las búsquedas hacia delante son iguales sin importar la fila
@@ -150,20 +153,85 @@ public class PersonaServiceImpl implements PersonaService{
                         }
 
                         // ---- Chequear diagonales
-                        if (i + 3 < dimension) {                       //Está dentro del límite hacia abajo?
+                        if (i + 1 < dimension) {                       //Está dentro del límite hacia abajo?
                             //Chequear diagonal atrás
-                            if (!parteDeCadena[i][j][2] && j - 3 >= 0 && actual == persona.getGenoma()[i+3].charAt(j-3) && actual == persona.getGenoma()[i+1].charAt(j-1) && actual == persona.getGenoma()[i+2].charAt(j-2))
-                            {
-                                acumulador ++;
-                                System.out.println("Cadena en " +actual + ";" + i+";"+j );
-                                parteDeCadena[i+1][j-3][2] = true;
+                            if (j-1 >= 0 && !parteDeCadena[i][j][2] && actual == persona.getGenoma()[i+1].charAt(j-1)){
+                                //Chequear diagonales atrás, abajo mucho
+                                if (
+                                        j-3 >= 0 && i+3 < dimension &&//Dentro del rango
+                                        //No forma parte de una cadena, chequeado en el if que contiene este if
+                                        actual == persona.getGenoma()[i+2].charAt(j-2) && actual == persona.getGenoma()[i+3].charAt(j-3) //Mismos caracteres
+                                )
+                                {
+                                    acumulador ++;
+                                    System.out.println("Cadena en " +actual + ";" + i+";"+j );
+                                    parteDeCadena[i+3][j-3][2] = true;
+                                }
+                                //Chequear diagonales atrás, ambos
+                                else if (
+                                        j+1 < dimension && j-2 >= 0 && i+2 < dimension &&//Dentro del rango
+                                        !parteDeCadena[i-1][j+1][2] &&//No forma parte de una cadena
+                                        actual == persona.getGenoma()[i-1].charAt(j+1) && actual == persona.getGenoma()[i+2].charAt(j-2) //Mismos caracteres
+                                )
+                                {
+                                    acumulador ++;
+                                    System.out.println("Cadena en " +actual + ";" + i+";"+j );
+                                    parteDeCadena[i+2][j-2][2] = true;
+                                }
+                                //Chequear diagonales atrás, arriba mucho
+                                else if (
+                                        i-2 >= 0 && j+2 < dimension &&//Dentro del rango
+                                        !parteDeCadena[i-2][j+2][2] &&//No forma parte de una cadena
+                                        actual == persona.getGenoma()[i-2].charAt(j+2) && actual == persona.getGenoma()[i-1].charAt(j+1) //Mismos caracteres
+                                )
+                                {
+                                    acumulador ++;
+                                    System.out.println("Cadena en " +actual + ";" + i+";"+j );
+                                    parteDeCadena[i+1][j-1][2] = true;
+                                }
                             }
                             //Chequear diagonal delante
-                            if (!parteDeCadena[i][j][3] && j + 3 < dimension && actual == persona.getGenoma()[i+3].charAt(j+3) && actual == persona.getGenoma()[i+1].charAt(j+1) && actual == persona.getGenoma()[i+2].charAt(j+2))
+                            if (!parteDeCadena[i][j][3] && j + 3 < dimension && i+3 < dimension && actual == persona.getGenoma()[i+3].charAt(j+3) && actual == persona.getGenoma()[i+1].charAt(j+1) && actual == persona.getGenoma()[i+2].charAt(j+2))
                             {
                                 acumulador ++;
                                 System.out.println("Cadena en " +actual + ";" + i+";"+j );
                                 parteDeCadena[i+1][j+3][3] = true;
+                            }
+                            //= == = = = = == =
+                            if (j+1 < dimension && !parteDeCadena[i][j][3] && actual == persona.getGenoma()[i+1].charAt(j+1)){
+                                //Chequear diagonales delante, abajo mucho
+                                if (
+                                        j+3 < dimension && i+3 < dimension && //Dentro del rango
+                                        //No forma parte de una cadena, chequeado en el if que contiene este if
+                                        actual == persona.getGenoma()[i+2].charAt(j+2) && actual == persona.getGenoma()[i+3].charAt(j+3) //Mismos caracteres
+                                )
+                                {
+                                    acumulador ++;
+                                    System.out.println("Cadena en " +actual + ";" + i+";"+j );
+                                    parteDeCadena[i+3][j+3][3] = true;
+                                }
+                                //Chequear diagonales delante, ambos
+                                else if (
+                                        j-1 >= 0 && j+2 < dimension && i+2 < dimension && //Dentro del rango
+                                        !parteDeCadena[i-1][j-1][3] && //No forma parte de una cadena
+                                        actual == persona.getGenoma()[i-1].charAt(j-1) && actual == persona.getGenoma()[i+2].charAt(j+2) //Mismos caracteres
+                                )
+                                {
+                                    acumulador ++;
+                                    System.out.println("Cadena en " +actual + ";" + i+";"+j );
+                                    parteDeCadena[i+2][j+2][3] = true;
+                                }
+                                //Chequear diagonales delante, arriba mucho
+                                else if (
+                                        i-2 >= 0 && j-2 >= 0 && //Dentro del rango
+                                        !parteDeCadena[i-2][j-2][3] && //No forma parte de una cadena
+                                        actual == persona.getGenoma()[i-2].charAt(j-2) && actual == persona.getGenoma()[i-1].charAt(j-1) //Mismos caracteres
+                                )
+                                {
+                                    acumulador ++;
+                                    System.out.println("Cadena en " +actual + ";" + i+";"+j );
+                                    parteDeCadena[i+1][j+1][3] = true;
+                                }
                             }
                         }
                     }
@@ -248,5 +316,9 @@ public class PersonaServiceImpl implements PersonaService{
                 ) throw new MalGenoma();
             }
         }
+    }
+
+    public void deleteAll(){
+        personaRepository.deleteAll();
     }
 }

@@ -5,16 +5,22 @@ import com.parcial1.dtos.DTOPersonaOutput;
 import com.parcial1.exceptions.MalGenoma;
 import com.parcial1.exceptions.MatrizNoCuadrada;
 import com.parcial1.exceptions.NoMutante;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.List;
 
 @SpringBootTest
 public class PersonaServiceImplTest {
 
     @Autowired
     PersonaServiceImpl personaService;
+
+    @AfterEach
+    public void limpiarBD(){
+        personaService.deleteAll();
+    }
 
     // ======= Tests de inputs incorrectos
     @Test
@@ -142,10 +148,10 @@ public class PersonaServiceImplTest {
         }
     }
 
-    //Chequea diagonal izquierda de diagonales largas
-    //Chequea diagonal izquierda de diagonales cortas, mucho para abajo
+    //Chequea diagonal delante de diagonales largas
+    //Chequea diagonal delante de diagonales cortas, mucho para abajo
     @Test
-    public void testMutantDiagonalLeft1(){
+    public void testMutantDiagonalFront1(){
         try{
             String[] genoma ={
                     "AGATT",
@@ -162,21 +168,122 @@ public class PersonaServiceImplTest {
         }
     }
 
-    //Chequea diagonal izquierda de diagonales cortas, ambas
-    //Chequea diagonal izquierda de diagonales cortas, mucho para arriba
+    //Chequea diagonal delante de diagonales cortas, ambas
+    //Chequea diagonal delante de diagonales cortas, mucho para arriba
     @Test
-    public void testMutantDiagonalLeft2(){
+    public void testMutantDiagonalFront2(){
         try{
             String[] genoma ={
                     "AAATTA",
                     "TTATAT",
                     "ACTATA",
                     "AGCTAC",
-                    "GCATTG"
+                    "GCATTG",
+                    "GCACCC"
             };
             DTOPersonaInput dtoI = new DTOPersonaInput(genoma);
             DTOPersonaOutput dtoO = personaService.isMutant(dtoI);
             Assertions.assertTrue(dtoO.isMutant());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    //Chequea diagonal detrás de diagonales largas
+    //Chequea diagonal detrás de diagonales cortas, mucho para abajo
+    @Test
+    public void testMutantDiagonalBack1(){
+        try{
+            String[] genoma ={
+                    "AGATA",
+                    "GAAAT",
+                    "ATATT",
+                    "AATGT",
+                    "GTATA"
+            };
+            DTOPersonaInput dtoI = new DTOPersonaInput(genoma);
+            DTOPersonaOutput dtoO = personaService.isMutant(dtoI);
+            Assertions.assertTrue(dtoO.isMutant());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    //Chequea diagonal detrás de diagonales cortas, ambas
+    //Chequea diagonal detrás de diagonales cortas, mucho para arriba
+    @Test
+    public void testMutantDiagonalBack2(){
+        try{
+            String[] genoma ={
+                    "ACAACA",
+                    "TTATAT",
+                    "AATATA",
+                    "ATCTAC",
+                    "TCATCG",
+                    "GCACCC"
+            };
+            DTOPersonaInput dtoI = new DTOPersonaInput(genoma);
+            DTOPersonaOutput dtoO = personaService.isMutant(dtoI);
+            Assertions.assertTrue(dtoO.isMutant());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    //Debería devolver una lista con DTOPersonaOutput
+    @Test
+    public void testFindAll(){
+        try{
+            String[] genoma1 = {
+                    "ATCG",
+                    "ATCT",
+                    "ATTG",
+                    "ATCG"
+            };
+            DTOPersonaInput dtoI1 = new DTOPersonaInput(genoma1);
+            personaService.isMutant(dtoI1);
+
+            String[] genoma2 ={
+                    "AAAA",
+                    "TGCA",
+                    "AAAA",
+                    "TCCG"
+            };
+            DTOPersonaInput dtoI2 = new DTOPersonaInput(genoma2);
+            personaService.isMutant(dtoI2);
+
+            List<?> listO = personaService.findAll();
+            Assertions.assertEquals(DTOPersonaOutput.class, listO.get(0).getClass());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    //Debería devolver el elemento con cierto índice
+    @Test
+    public void testFindByIDIndex1(){
+        try{
+            String[] genoma1 = {
+                    "ATCG",
+                    "ATCT",
+                    "ATTG",
+                    "ATCG"
+            };
+            DTOPersonaInput dtoI1 = new DTOPersonaInput(genoma1);
+            DTOPersonaOutput dtoOS = personaService.isMutant(dtoI1);
+
+            String[] genoma2 ={
+                    "AAAA",
+                    "TGCA",
+                    "AAAA",
+                    "TCCG"
+            };
+            DTOPersonaInput dtoI2 = new DTOPersonaInput(genoma2);
+            personaService.isMutant(dtoI2);
+
+            Long index = dtoOS.getId();
+            DTOPersonaOutput dtoOF = personaService.findById(index);
+            Assertions.assertEquals(dtoOS.getId(), dtoOF.getId());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
