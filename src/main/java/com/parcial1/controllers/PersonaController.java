@@ -1,6 +1,7 @@
 package com.parcial1.controllers;
 
 import com.parcial1.dtos.DTOPersonaInput;
+import com.parcial1.dtos.DTOPersonaOutput;
 import com.parcial1.exceptions.MalGenoma;
 import com.parcial1.exceptions.MatrizNoCuadrada;
 import com.parcial1.exceptions.NoMutante;
@@ -21,7 +22,13 @@ public class PersonaController{
     @PostMapping("/mutant/")
     public ResponseEntity<?> mutant(@RequestBody DTOPersonaInput persona){
         try{
-            return ResponseEntity.status(HttpStatus.OK).body(servicio.isMutant(persona));
+            DTOPersonaOutput existente = servicio.genomaExistente(persona);
+            if (existente == null){
+                return ResponseEntity.status(HttpStatus.OK).body(servicio.isMutant(persona));
+            }
+            else {
+                return ResponseEntity.status(HttpStatus.OK).body("{\"El genoma ya existe en la base de datos:\"}" + "\"" + existente+ "\"");
+            }
         }
         catch (MalGenoma e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error, "+ e.getMessage() +" }\"}");

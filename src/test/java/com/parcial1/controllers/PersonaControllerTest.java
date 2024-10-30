@@ -60,6 +60,24 @@ public class PersonaControllerTest {
     }
 
     @Test
+    public void testExistente(){
+        try{
+            String[] string = {
+                    "AAAA",
+                    "ACCG",
+                    "AGGC",
+                    "AATT"
+            };
+            DTOPersonaInput dtoI = new DTOPersonaInput(string);
+            personaController.mutant(dtoI);
+            ResponseEntity<?> resp = personaController.mutant(dtoI);
+            Assertions.assertEquals(HttpStatus.OK, resp.getStatusCode());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
     public void testMutantWrongChar(){
         try{
             String[] string = {

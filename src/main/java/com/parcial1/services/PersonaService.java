@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface PersonaService{
     public DTOPersonaOutput isMutant(DTOPersonaInput per) throws Exception;
+    public DTOPersonaOutput genomaExistente(DTOPersonaInput per) throws Exception;
     public List<DTOPersonaOutput> findAll() throws Exception;
     public DTOPersonaOutput findById(Long id) throws Exception;
 }

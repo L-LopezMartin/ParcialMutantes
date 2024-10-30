@@ -8,6 +8,8 @@ import com.parcial1.exceptions.NoMutante;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
@@ -284,6 +286,25 @@ public class PersonaServiceImplTest {
             Long index = dtoOS.getId();
             DTOPersonaOutput dtoOF = personaService.findById(index);
             Assertions.assertEquals(dtoOS.getId(), dtoOF.getId());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
+    public void testExistente(){
+        try{
+            String[] string = {
+                    "AAAA",
+                    "ACCG",
+                    "AGGC",
+                    "AATT"
+            };
+            DTOPersonaInput dtoI = new DTOPersonaInput(string);
+            DTOPersonaOutput dtoO1 = personaService.isMutant(dtoI);
+            DTOPersonaOutput dtoO2 = personaService.genomaExistente(dtoI);
+            Assertions.assertEquals(dtoO2.getId().toString(), dtoO1.getId().toString());
+            Assertions.assertArrayEquals(dtoO2.getGenoma(), dtoO1.getGenoma());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

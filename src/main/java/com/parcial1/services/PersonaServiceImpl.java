@@ -264,6 +264,20 @@ public class PersonaServiceImpl implements PersonaService{
 
     @Override
     @Transactional
+    public DTOPersonaOutput genomaExistente(DTOPersonaInput per){
+        try {
+            Optional<Persona> optionalPersona = personaRepository.findByGenoma(per.getGenoma());
+            Persona persona = optionalPersona.get();
+            DTOPersonaOutput dto = new DTOPersonaOutput(persona.getId(), persona.getGenoma(), persona.isMutant());
+            System.out.println(dto.getId());
+            return dto;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    @Override
+    @Transactional
     public List findAll() throws Exception {
         try{
             List<Persona> entities = personaRepository.findAll();
@@ -292,6 +306,7 @@ public class PersonaServiceImpl implements PersonaService{
             throw new Exception(e.getMessage());
         }
     }
+
 
     private void isGenomeSquare(String[] genoma) throws Exception{
         int dimension = genoma.length;
