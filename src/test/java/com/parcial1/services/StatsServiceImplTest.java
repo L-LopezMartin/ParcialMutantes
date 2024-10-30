@@ -2,6 +2,7 @@ package com.parcial1.services;
 
 import com.parcial1.dtos.DTOPersonaInput;
 import com.parcial1.dtos.DTOStats;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,11 @@ public class StatsServiceImplTest {
 
     @Autowired
     PersonaServiceImpl personaService;
+
+    @AfterEach
+    public void limpiarBD(){
+        personaService.deleteAll();
+    }
 
     //Debería devolver 0 en sus tres valores cuando no hay matrices en la base de datos
     @Test
