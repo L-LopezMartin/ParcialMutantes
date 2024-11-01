@@ -279,7 +279,7 @@ public class PersonaServiceImpl implements PersonaService{
 
     @Override
     @Transactional
-    public List findAll() throws Exception {
+    public List<DTOPersonaOutput> findAll() throws Exception {
         try{
             List<Persona> entities = personaRepository.findAll();
             List<DTOPersonaOutput> dtos = new ArrayList<>();
