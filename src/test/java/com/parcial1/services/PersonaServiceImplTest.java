@@ -2,14 +2,12 @@ package com.parcial1.services;
 
 import com.parcial1.dtos.DTOPersonaInput;
 import com.parcial1.dtos.DTOPersonaOutput;
-import com.parcial1.exceptions.MalGenoma;
-import com.parcial1.exceptions.MatrizNoCuadrada;
-import com.parcial1.exceptions.NoMutante;
+import com.parcial1.exceptions.MalGenomaException;
+import com.parcial1.exceptions.MatrizNoCuadradaException;
+import com.parcial1.exceptions.NoMutanteException;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
@@ -43,7 +41,7 @@ public class PersonaServiceImplTest {
                 "AAAF"
         };
         DTOPersonaInput dto = new DTOPersonaInput(genoma);
-        Assertions.assertThrows(MalGenoma.class, () -> {personaService.isMutant(dto);});
+        Assertions.assertThrows(MalGenomaException.class, () -> {personaService.isMutant(dto);});
     }
 
     @Test
@@ -64,7 +62,7 @@ public class PersonaServiceImplTest {
                 "ATCGT"
         };
         DTOPersonaInput dto = new DTOPersonaInput(genoma);
-        Assertions.assertThrows(MatrizNoCuadrada.class, () -> {personaService.isMutant(dto);});
+        Assertions.assertThrows(MatrizNoCuadradaException.class, () -> {personaService.isMutant(dto);});
     }
 
     @Test
@@ -76,7 +74,7 @@ public class PersonaServiceImplTest {
                 "ATCGT"
         };
         DTOPersonaInput dto = new DTOPersonaInput(genoma);
-        Assertions.assertThrows(MatrizNoCuadrada.class, () -> {personaService.isMutant(dto);});
+        Assertions.assertThrows(MatrizNoCuadradaException.class, () -> {personaService.isMutant(dto);});
     }
 
     // ======== Tests de resultados
@@ -89,7 +87,7 @@ public class PersonaServiceImplTest {
                 "ATCG"
         };
         DTOPersonaInput dto = new DTOPersonaInput(genoma);
-        Assertions.assertThrows(NoMutante.class, () -> {personaService.isMutant(dto);});
+        Assertions.assertThrows(NoMutanteException.class, () -> {personaService.isMutant(dto);});
     }
 
     //Chequea horizontal hacia delante y hacia atrás

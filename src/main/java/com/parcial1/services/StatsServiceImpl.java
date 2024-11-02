@@ -16,9 +16,12 @@ public class StatsServiceImpl implements StatsService {
         int nonMutants = personaRepository.sumCountByMutant(false);
 
         DTOStats dto = new DTOStats();
-        dto.setCount_mutant_dna(mutants);
-        dto.setCount_human_dna(nonMutants);
-        dto.setRatio(nonMutants == 0 ? mutants : (float) mutants / nonMutants);
+        dto.setCountMutantDna(mutants);
+        dto.setCountHumanDna(nonMutants);
+        float ratio = mutants;
+        if (nonMutants != 0 )
+            ratio = (float) mutants / nonMutants;
+        dto.setRatio(ratio);
 
         return dto;
     }

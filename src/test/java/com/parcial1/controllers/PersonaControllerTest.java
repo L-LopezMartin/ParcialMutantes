@@ -1,8 +1,6 @@
 package com.parcial1.controllers;
 
 import com.parcial1.dtos.DTOPersonaInput;
-import com.parcial1.dtos.DTOPersonaOutput;
-import com.parcial1.exceptions.NoMutante;
 import com.parcial1.services.PersonaServiceImpl;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;

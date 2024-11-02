@@ -1,7 +1,7 @@
 package com.parcial1.exceptions;
 
-public class MalGenoma extends RuntimeException {
-    public MalGenoma() {
+public class MalGenomaException extends RuntimeException {
+    public MalGenomaException() {
         super("El genoma ingresado tiene un caracter que no es válido");
     }
 }

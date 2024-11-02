@@ -10,7 +10,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DTOStats {
-    int count_mutant_dna;
-    int count_human_dna;
+    int countMutantDna;
+    int countHumanDna;
     float ratio;
 }

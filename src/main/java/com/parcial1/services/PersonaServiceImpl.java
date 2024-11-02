@@ -4,9 +4,9 @@ package com.parcial1.services;
 import com.parcial1.dtos.DTOPersonaInput;
 import com.parcial1.dtos.DTOPersonaOutput;
 import com.parcial1.entities.Persona;
-import com.parcial1.exceptions.MalGenoma;
-import com.parcial1.exceptions.MatrizNoCuadrada;
-import com.parcial1.exceptions.NoMutante;
+import com.parcial1.exceptions.MalGenomaException;
+import com.parcial1.exceptions.MatrizNoCuadradaException;
+import com.parcial1.exceptions.NoMutanteException;
 import com.parcial1.repositories.PersonaRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -248,15 +248,15 @@ public class PersonaServiceImpl implements PersonaService{
 
             persona.setMutant(false);
             personaRepository.save(persona);
-            throw new NoMutante();
-        } catch (MalGenoma e) {
-            throw new MalGenoma();
+            throw new NoMutanteException();
+        } catch (MalGenomaException e) {
+            throw new MalGenomaException();
         }
-        catch (NoMutante e){
-            throw new NoMutante();
+        catch (NoMutanteException e){
+            throw new NoMutanteException();
         }
-        catch (MatrizNoCuadrada e){
-            throw new MatrizNoCuadrada();
+        catch (MatrizNoCuadradaException e){
+            throw new MatrizNoCuadradaException();
         }
         catch (Exception e){
             throw new Exception(e.getMessage());
@@ -313,12 +313,12 @@ public class PersonaServiceImpl implements PersonaService{
         int dimension = genoma.length;
         for (String genLine : genoma){
             if (genLine.length() != dimension){
-                throw new MatrizNoCuadrada();
+                throw new MatrizNoCuadradaException();
             }
         }
     }
 
-    private void checkChars(Persona persona) throws MalGenoma{
+    private void checkChars(Persona persona) throws MalGenomaException {
         String[] genoma = persona.getGenoma();
         int dimension = persona.getGenoma().length;
         for (String linea: genoma){
@@ -329,7 +329,7 @@ public class PersonaServiceImpl implements PersonaService{
                                 actual != persona.getPosiblesValores()[1] &&
                                 actual != persona.getPosiblesValores()[2] &&
                                 actual != persona.getPosiblesValores()[3]
-                ) throw new MalGenoma();
+                ) throw new MalGenomaException();
             }
         }
     }
