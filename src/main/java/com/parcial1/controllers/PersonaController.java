@@ -27,17 +27,17 @@ public class PersonaController{
                 return ResponseEntity.status(HttpStatus.OK).body(servicio.isMutant(dtoInput));
             }
             else {
-                return ResponseEntity.status(HttpStatus.OK).body("{\"El genoma ya existe en la base de datos:\"}" + "\"" + existente+ "\"");
+                return ResponseEntity.status(HttpStatus.OK).body("{\"El genoma ya existe en la base de datos:\"" + "\"" + existente+ "}\"");
             }
         }
         catch (MalGenomaException e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error, "+ e.getMessage() +" }\"}");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error, "+ e.getMessage() +" \"}");
         }
         catch (MatrizNoCuadradaException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error, "+ e.getMessage() +" }\"}");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"Error, "+ e.getMessage() +" \"}");
         }
         catch (NoMutanteException e) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("{\"error\":\"Error, "+ e.getMessage() +" }\"}");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("{\"error\":\"Error, "+ e.getMessage() +" \"}");
         }
         catch (Exception e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error, por favor intente más tarde\"}");
