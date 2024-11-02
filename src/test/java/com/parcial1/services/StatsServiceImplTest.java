@@ -25,8 +25,8 @@ public class StatsServiceImplTest {
     @Test
     public void testReturnOnEmpty(){
         DTOStats dto = statsService.getStats();
-        Assertions.assertEquals(0,dto.getCount_human_dna());
-        Assertions.assertEquals(0,dto.getCount_mutant_dna());
+        Assertions.assertEquals(0,dto.getCountHumanDna());
+        Assertions.assertEquals(0,dto.getCountMutantDna());
         Assertions.assertEquals(0,dto.getRatio());
     }
     //Debería devolver la cantidad de mutantes en el ratio si no hay humanos
@@ -52,8 +52,8 @@ public class StatsServiceImplTest {
             personaService.isMutant(dtoI2);
 
             DTOStats dto = statsService.getStats();
-            Assertions.assertEquals(0,dto.getCount_human_dna());
-            Assertions.assertEquals(2,dto.getCount_mutant_dna());
+            Assertions.assertEquals(0,dto.getCountHumanDna());
+            Assertions.assertEquals(2,dto.getCountMutantDna());
             Assertions.assertEquals(2,dto.getRatio());
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -91,8 +91,8 @@ public class StatsServiceImplTest {
             personaService.isMutant(dtoI3);
 
             DTOStats dto = statsService.getStats();
-            Assertions.assertEquals(2,dto.getCount_human_dna());
-            Assertions.assertEquals(1,dto.getCount_mutant_dna());
+            Assertions.assertEquals(2,dto.getCountHumanDna());
+            Assertions.assertEquals(1,dto.getCountMutantDna());
             Assertions.assertEquals(0.5,dto.getRatio());
         } catch (Exception ignored) { }
     }
