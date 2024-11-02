@@ -5,7 +5,7 @@
     <li><a href="#instrucciones-de-uso">Instrucciones de uso</a></li>
     <li><a href="#sobre-el-algoritmo">Sobre el algoritmo</a></li>
     <li><a href="#tests-autom%C3%A1ticos">Tests automáticos</a></li>
-    <li><a href="https://github.com/L-LopezMartin/ParcialMutantes/edit/main/README.md#documentaci%C3%B3n">Documentación</a></li>
+    <li><a href="#documentaci%C3%B3n">Documentación</a></li>
   </ul>
 </div>
 
